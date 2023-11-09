@@ -1,0 +1,4 @@
+const resgiterController = () => {};
+
+
+export {resgiterController}
