@@ -2,10 +2,18 @@ import express from "express";
 import dotenv from "dotenv";
 import { connectDB } from "./db/index.js";
 import { app } from "./app.js";
+import authRouter from "./routes/auth/index.js";
 
 dotenv.config({
   path: "./.env",
 });
+
+
+
+
+
+
+
 
 connectDB()
   .then(() => {
