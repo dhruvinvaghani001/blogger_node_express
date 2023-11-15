@@ -18,15 +18,15 @@
     <form action="/create" method="post" class="w-full max-w-lg bg-white rounded-md shadow-md p-6" enctype="multipart/form-data">
       <div class="mb-4">
         <label for="post-title" class="block text-gray-800 font-semibold mb-2">Title:</label>
-        <input type="text" id="post-title" name="post-title" class="w-full border p-2 border-violet-500 rounded-md">
+        <input type="text" id="post-title" name="title" class="w-full border p-2 border-violet-500 rounded-md" required>
       </div>
       <div class="mb-4">
         <label for="post-content" class="block text-gray-800 font-semibold mb-2">Content:</label>
-        <textarea id="post-content" name="post-content" class="w-full border p-2 border-violet-500 rounded-md"></textarea>
+        <textarea id="post-content" name="content" class="w-full border p-2 border-violet-500 rounded-md" required></textarea>
       </div>
       <div class="mb-4">
         <label for="post-image" class="block text-gray-800 font-semibold mb-2">Image:</label>
-        <input type="file" id="post-image" name="post-image" accept="image/*" class="w-full border p-2 border-violet-500 rounded-md">
+        <input type="file" id="post-image" name="image" accept="image/*" class="w-full border p-2 border-violet-500 rounded-md" required>
       </div>
       <button type="submit" class="bg-violet-500 text-white px-4 py-2 hover:bg-violet-600 w-full">Create Post</button>
     </form>

@@ -6,13 +6,13 @@ import { logoutController } from "../../controllers/auth/logoutController.js";
 const authRouter = express.Router();
 
 authRouter.get("/signup", (req, res) => {
-  res.render("auth/register", { message1: "", message2: "", stauts: true });
+  res.render("auth/register", { message1: "", message2: "", status: true });
 });
 
 authRouter.post("/signup", registerController);
 
 authRouter.get("/login", (req, res) => {
-  res.render("auth/login", { message1: "", message2: "", stauts: true });
+  res.render("auth/login", { message1: "", message2: "", status: true });
 });
 
 authRouter.post("/login", loginController);

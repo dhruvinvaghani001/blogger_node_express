@@ -4,11 +4,35 @@ import jwt from "jsonwebtoken";
 
 const loginController = async (req, res) => {
   const { email, password } = req.body;
+  console.log(req.body.email && req.body.password);
+  if (!req.body.email && !req.body.password) {
+    return res.render("auth/login", {
+      message1: "please provide email",
+      message2: "please provide password",
+      status: false,
+    });
+  } else if (!req.body.password) {
+    return res.render("auth/login", {
+      message1: "",
+      message2: "please provide password",
+      status: false,
+    });
+  } else if (!req.body.email) {
+    return res.render("auth/login", {
+      message1: "please provide email",
+      message2: "",
+      status: false,
+    });
+  }
 
   const user = await User.findOne({ email });
- 
+
   if (!user) {
-    res.render("auth/login", { message1: "User not exists", message2: "" });
+    res.render("auth/login", {
+      message1: "User not exists",
+      message2: "",
+      status: false,
+    });
   }
   const checkPass = await bcryptjs.compareSync(password, user.password);
   console.log(checkPass);
