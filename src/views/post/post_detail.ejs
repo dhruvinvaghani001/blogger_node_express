@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <title>Blog Description</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+
+<body class="bg-gray-100">
+
+  <%- include('../header.ejs', { status: "" }) -%>
+
+
+
+  <div class="container mx-auto mt-20 flex flex-col md:flex-row mb-24 px-4">
+    <!-- Left Part: Blog Description (75%) -->
+    <div class="w-full md:w-3/4 p-6 bg-white rounded-md shadow-md mb-4 md:mb-0 md:mr-8">
+      <img src=<%= post.image %> alt=<%= post.title %> class="mb-4 rounded-md w-full ">
+      <h2 class="text-3xl font-semibold mb-4 text-black-800"><%= post.title %></h2>
+      <p class="text-gray-800 mb-4">
+        <%= post.content %>
+
+      </p>
+      <% if(check) {%>
+      <a href="<%= `/post/${post._id}/edit` %>"><button class="bg-green-500 text-white px-4 py-2 rounded" >Edit</button></a>
+      <button class="bg-red-500 text-white px-4 py-2 rounded">Delete</button>
+      <%}%>
+    </div>
+
+    <!-- Right Part: Comments (25%) -->
+    <div class="w-full md:w-1/4 p-6 bg-white rounded-md shadow-md md:ml-8">
+      <!-- Comments Section -->
+      <div class="mb-4">
+        <h3 class="text-xl font-semibold mb-2 text-violet-800">Comments</h3>
+
+        <!-- Sample Comment -->
+        <div class="flex items-center mb-4 bg-violet-600 p-2 rounded-lg">
+          <img src="./images/avatar1.jpg" alt="Profile" class="rounded-full mr-4" height="50" width="50">
+          <div>
+            <strong class="text-white">Username</strong>
+            <p class="text-white">Nice blog! I really enjoyed reading it.</p>
+          </div>
+        </div>
+
+        <!-- Add more comments as needed -->
+
+      </div>
+
+      <!-- Comment Box -->
+      <div>
+        <h3 class="text-xl font-semibold mb-2 text-violet-800">Add a Comment</h3>
+        <textarea class="w-full h-16 border p-2 mb-2 border-black"></textarea>
+        <button class="bg-violet-500 text-white px-4 py-2 hover:bg-violet-600">Submit Comment</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript to toggle mobile menu visibility -->
+  <script>
+    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    mobileMenuToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  </script>
+
+</body>
+
+</html>

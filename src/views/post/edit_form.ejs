@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <title>Create Blog Post</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+<body class="bg-gray-100">
+
+    <%- include('../header.ejs', { status: "" }) -%>
+
+
+  <div class="container mx-auto mt-20 px-4">
+    <h2 class="text-3xl font-semibold mb-4 text-violet-800">Edit a Blog Post</h2>
+    <form action=<%= `/post/${post._id}/update` %> method="post" class="w-full max-w-lg bg-white rounded-md shadow-md p-6" enctype="multipart/form-data">
+      <div class="mb-4">
+        <label for="post-title" class="block text-gray-800 font-semibold mb-2">Title:</label>
+        <input type="text" id="post-title" name="title" value=<%= post.title %> class="w-full border p-2 border-violet-500 rounded-md" required>
+      </div>
+      <div class="mb-4">
+        <label for="post-content" class="block text-gray-800 font-semibold mb-2">Content:</label>
+        <textarea id="post-content" name="content"  class="w-full border p-2 border-violet-500 rounded-md" required><%= post.content %></textarea>
+      </div>
+      <div class="mb-4">
+        <img src=<%= post.image %> alt=<%= post.title %> srcset="">
+        <label for="post-image" class="block text-gray-800 font-semibold mb-2">Image:</label>
+        <input type="file" id="post-image" name="image" accept="image/*" class="w-full border p-2 border-violet-500 rounded-md" >
+      </div>
+      <button type="submit" class="bg-violet-500 text-white px-4 py-2 hover:bg-violet-600 w-full">Create Post</button>
+    </form>
+  </div>
+
+  <!-- JavaScript to toggle mobile menu visibility -->
+  <script>
+    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    mobileMenuToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  </script>
+
+</body>
+</html>
