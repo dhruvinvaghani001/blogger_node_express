@@ -8,7 +8,8 @@ import { postRouter } from "./routes/post/index.js";
 // import multer from 'multer';
 // import { CloudinaryStorage } from 'multer-storage-cloudinary';
 import { upload } from "./middleware/multer.js";
-
+import { commentRouter } from "./routes/comment/index.js";
+import { Post } from "./models/post.model.js";
 
 const app = express();
 app.set("view engine", "ejs");
@@ -18,13 +19,18 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(authMiddleware);
+app.use(express.static('public'))
 
 
 app.use("/", authRouter);
 app.use("/", postRouter);
+app.use("/", commentRouter);
 
-
-
+app.get("/getall",async(req,res)=>{
+  const post = await Post.findById("655463544338cc9d5232a4b8").populate('comments');
+  console.log(post);
+  res.send("dnbfjkdn");
+})
 
 
 app.get(
@@ -54,6 +60,11 @@ app.get("/demo", (req, res) => {
   res.render("demo");
 });
 
+app.post("/comment", (req, res) => {
+  console.log(req.body);
+  res.send("hello");
+});
+
 // app.get("/getdata", (req, res) => {
 //   const data = getDatafromToken(req);
 //   console.log(data);
@@ -61,21 +72,8 @@ app.get("/demo", (req, res) => {
 // });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+app.post("commerts",(req,res)=>{
+  res.send("hello");
+})
 
 export { app };

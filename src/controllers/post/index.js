@@ -34,11 +34,26 @@ const getAllpostController = async (req, res) => {
 const getPostController = async (req, res) => {
   const { id } = req.params;
   try {
-    const post = await Post.findOne({ _id: id });
+    const post = await Post.findById(id);
+    const author = getDatafromToken(req);
+    const { comments } = await post.populate({
+      path: "comments",
+      populate: {
+        path: "user",
+        model: "User",
+        select: "username",
+      },
+    });
+    
+    const c = comments.map((iteam)=>{
+      return {...iteam._doc,check:iteam.user._id==author.id}
+    })
+    console.log(c);
+    
     if (post) {
-      const author = getDatafromToken(req);
+      
       const check = post.author == author.id;
-      res.render("post/post_detail", { post, check });
+      res.render("post/post_detail", { post, comments ,check});
     }
   } catch (error) {
     console.log("cant get post ", error);
