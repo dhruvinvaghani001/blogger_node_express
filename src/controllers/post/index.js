@@ -1,5 +1,8 @@
 import { Post } from "../../models/post.model.js";
+import { Comment } from "../../models/comment.model.js";
+
 import { getDatafromToken } from "../../utiils/getDatafromToken.js";
+import { cloudinary } from "../../middleware/multer.js";
 
 const createPostController = async (req, res) => {
   const { title, content } = req.body;
@@ -18,9 +21,9 @@ const createPostController = async (req, res) => {
 const getAllpostController = async (req, res) => {
   try {
     const data = await Post.find().populate({
-      path:"author",
-      model:"User",
-      select:"username",
+      path: "author",
+      model: "User",
+      select: "username",
     });
     // console.log((data[0].createdAt).);
     if (data.length == 0) {
@@ -49,16 +52,15 @@ const getPostController = async (req, res) => {
         select: "username",
       },
     });
-    
-    const commentsToPass = comments.map((iteam)=>{
-      return {...iteam._doc,check:iteam.user._id==author.id}
-    })
+
+    const commentsToPass = comments.map((iteam) => {
+      return { ...iteam._doc, check: iteam.user._id == author.id };
+    });
     // console.log(commentsToPass);
-    
+
     if (post) {
-      
       const check = post.author == author.id;
-      res.render("post/post_detail", { post, comments:commentsToPass ,check});
+      res.render("post/post_detail", { post, comments: commentsToPass, check });
     }
   } catch (error) {
     console.log("cant get post ", error);
@@ -84,7 +86,34 @@ const updatePostController = async (req, res) => {
   }
 };
 
-const deletePostController = (req, res) => {};
+const deletePostController = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const post = await Post.findById(id);
+    const commets = post.comments;
+
+    const imageUrl = post.image;
+    console.log(imageUrl);
+    try {
+      const publicId = imageUrl.split("/").pop().split(".")[0];
+      const result = await cloudinary.api.delete_resources(["uploads/"+publicId], {
+        type: "upload",
+        resource_type: "image",
+      });
+
+      console.log(result);
+    } catch (error) {
+      console.error("Error deleting image:", error);
+    }
+
+    await Comment.deleteMany({ _id: { $in: commets } });
+    await Post.deleteOne({ _id: id });
+  } catch (error) {
+    console.log(error);
+  } finally {
+    res.redirect("/");
+  }
+};
 
 export {
   createPostController,

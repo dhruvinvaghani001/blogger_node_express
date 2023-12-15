@@ -12,7 +12,7 @@ const createCommentController = async (req, res) => {
   });
   await newComment.save();
 
-  console.log(newComment);
+  // console.log(newComment);
   const post = await Post.findByIdAndUpdate(
     post_id,
     { $push: { comments: newComment._id } },
@@ -25,14 +25,13 @@ const createCommentController = async (req, res) => {
 
 const deleteCommetController = async(req,res)=>{
   const {id,post_id} = req.params;
-  console.log(id);
+  // console.log(id);
   try {
       const result = await Comment.deleteOne({_id:id});
   } catch (error) {
     console.log(error);
   }finally{
     res.redirect(`/post/${post_id}`)
-
   }
 }
 

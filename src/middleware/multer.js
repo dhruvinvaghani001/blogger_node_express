@@ -22,3 +22,10 @@ const upload = multer({ storage: storage });
 
 export { cloudinary };
 export { upload };
+
+
+
+// cloudinary.v2.api
+//   .delete_resources(['uploads/Skype_Picture_2023_12_13T06_59_41_213Z-1702624422078'], 
+//     { type: 'upload', resource_type: 'image' })
+//   .then(console.log);

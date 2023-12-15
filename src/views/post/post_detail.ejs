@@ -28,9 +28,18 @@
 
           </p>
           <% if(check) {%>
-            <a href="<%= `/post/${post._id}/edit` %>"><button
-                class="bg-green-500 text-white px-4 py-2 rounded">Edit</button></a>
-            <button class="bg-red-500 text-white px-4 py-2 rounded">Delete</button>
+            <div class="flex gap-2">
+
+
+              <a href="<%= `/post/${post._id}/edit` %>"><button
+                  class="bg-green-500 text-white px-4 py-2 rounded">Edit</button></a>
+
+              <form method="POST" action=<%=`/post/${post._id}` %> >
+                <button class="bg-red-500 text-white px-4 py-2 rounded"
+                  onclick="confirm('are you sure want to delete') ? this.closest('form').submit()  : console.log('not delete')">Delete</button>
+              </form>
+            </div>
+
             <%}%>
       </div>
 
@@ -54,13 +63,14 @@
                     <%= iteam.text %>
                   </p>
                   <% if(iteam.check) {%>
-                    <form method="POST"   action=<%= `/post/${post._id}/comment/${iteam._id}` %>   >
-                      <button type="button" id="delete-btn" onclick="confirm('are you sure want to delete') ? this.closest('form').submit()  : console.log('not delete')"
+                    <form method="POST" action=<%=`/post/${post._id}/comment/${iteam._id}` %> >
+                      <button type="button" id="delete-btn"
+                        onclick="confirm('are you sure want to delete') ? this.closest('form').submit()  : console.log('not delete')"
                         class="mt-2 text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-md text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Delete</button>
                     </form>
                     <%}%>
                 </div>
-                
+
               </div>
               <% }) %>
         </div>

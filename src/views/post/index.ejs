@@ -13,40 +13,50 @@
 
   <%- include('../header.ejs', { status: "" }) -%>
 
-  <!-- Mobile menu (hidden by default) -->
-  <div class="container mx-auto my-8 mt-24  px-4">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      <!-- Card 1 -->
-      <% data.forEach((iteam)=>{  %>
-      <a href=<%= `post/${iteam._id}` %>>
-        <div class="bg-white p-6 rounded-lg shadow-md">
-          <img src=<%= iteam.image %> alt=<%= iteam.title %> class="mb-4 rounded-md">
-          <h2 class="text-xl font-semibold mb-4"><%= iteam.title %></h2>
-          <p><%= (iteam.content).substring(0,50) %></p>
-          <p class="text-md text-semibold "><%= iteam.author.username %></p>
-          <p class="text-md text-semibold "><%= (iteam.createdAt).toLocaleString("en-US",{day:"2-digit",month:"short",year:"numeric"}) %></p>
+    <!-- Mobile menu (hidden by default) -->
+    <div class="container mx-auto my-8 mt-24  px-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
 
-        </div>
-      </a>
+        <% if(data[0].type=="not data"){%>
+          <div class="p-2 flex">
+            <h1 class="text-black text-2xl font-bold">Post not Found</h1>
+          </div>
+          <%}else{%>
 
-      <%})%>
 
+            <% data.forEach((iteam)=>{ %>
+              <a href=<%=`post/${iteam._id}` %>>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                  <img src=<%=iteam.image %> alt=<%= iteam.title %> class="mb-4 rounded-md">
+                    <h2 class="text-xl font-semibold mb-4">
+                      <%= iteam.title %>
+                    </h2>
+                    <p>
+                      <%= (iteam.content).substring(0,50) %>
+                    </p>
+                    <p class="text-md font-bold ">
+                      <span class="font-medium">Author : </span><%= iteam.author.username %>
+                    </p>
+                    <p class="text-md  font-bold">
+                      <span class="font-medium">Created AT<span> : <%= (iteam.createdAt).toLocaleString("en-US",{day:"2-digit",month:"short",year:"numeric"}) %>
+                    </p>
+
+                </div>
+              </a>
+
+              <%})%>
+
+                <%}%>
+      </div>
     </div>
-  </div>
+    <script>
+      const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+      const mobileMenu = document.getElementById('mobile-menu');
 
-  <!-- Mobile menu (hidden by default) -->
-
-
-
-  <!-- JavaScript to toggle mobile menu visibility -->
-  <script>
-    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-    const mobileMenu = document.getElementById('mobile-menu');
-
-    mobileMenuToggle.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
-    });
-  </script>
+      mobileMenuToggle.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+    </script>
 
 </body>
 

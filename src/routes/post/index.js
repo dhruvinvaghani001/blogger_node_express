@@ -1,6 +1,7 @@
 import express from "express";
 import {
   createPostController,
+  deletePostController,
   getAllpostController,
   getPostController,
   updatePostController,
@@ -24,8 +25,11 @@ postRouter.get("/post/:id", getPostController);
 postRouter.get("/post/:id/edit", authorization, async (req, res) => {
   const { id } = req.params;
   const post = await Post.findOne({ _id: id });
+  // console.log(post);
   res.render("post/edit_form", { post });
 });
+
+postRouter.post("/post/:id",authorization,deletePostController);
 
 postRouter.post(
   "/post/:id/update",

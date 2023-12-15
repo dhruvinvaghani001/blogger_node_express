@@ -18,7 +18,7 @@
     <form action=<%= `/post/${post._id}/update` %> method="post" class="w-full max-w-lg bg-white rounded-md shadow-md p-6" enctype="multipart/form-data">
       <div class="mb-4">
         <label for="post-title" class="block text-gray-800 font-semibold mb-2">Title:</label>
-        <input type="text" id="post-title" name="title" value=<%= post.title %> class="w-full border p-2 border-violet-500 rounded-md" required>
+        <input type="text" id="post-title" name="title" class="w-full border p-2 border-violet-500 rounded-md" required  value='<%= post.title %>'> 
       </div>
       <div class="mb-4">
         <label for="post-content" class="block text-gray-800 font-semibold mb-2">Content:</label>
