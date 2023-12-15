@@ -19,7 +19,21 @@ const createCommentController = async (req, res) => {
     { new: true }
   );
 
-  res.send("mnfjoi");
+  res.redirect(`/post/${post_id}`);
 };
 
-export { createCommentController };
+
+const deleteCommetController = async(req,res)=>{
+  const {id,post_id} = req.params;
+  console.log(id);
+  try {
+      const result = await Comment.deleteOne({_id:id});
+  } catch (error) {
+    console.log(error);
+  }finally{
+    res.redirect(`/post/${post_id}`)
+
+  }
+}
+
+export { createCommentController,deleteCommetController };

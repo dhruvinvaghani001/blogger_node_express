@@ -17,7 +17,12 @@ const createPostController = async (req, res) => {
 
 const getAllpostController = async (req, res) => {
   try {
-    const data = await Post.find();
+    const data = await Post.find().populate({
+      path:"author",
+      model:"User",
+      select:"username",
+    });
+    // console.log((data[0].createdAt).);
     if (data.length == 0) {
       res.render("post/index", {
         data: [{ type: "not data", message: "no posts available" }],
@@ -45,15 +50,15 @@ const getPostController = async (req, res) => {
       },
     });
     
-    const c = comments.map((iteam)=>{
+    const commentsToPass = comments.map((iteam)=>{
       return {...iteam._doc,check:iteam.user._id==author.id}
     })
-    console.log(c);
+    // console.log(commentsToPass);
     
     if (post) {
       
       const check = post.author == author.id;
-      res.render("post/post_detail", { post, comments ,check});
+      res.render("post/post_detail", { post, comments:commentsToPass ,check});
     }
   } catch (error) {
     console.log("cant get post ", error);

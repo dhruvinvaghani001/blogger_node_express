@@ -19,7 +19,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(authMiddleware);
-app.use(express.static('public'))
+app.use(express.static('./public'))
 
 
 app.use("/", authRouter);
@@ -33,28 +33,28 @@ app.get("/getall",async(req,res)=>{
 })
 
 
-app.get(
-  "/post/:id/edit",
-  (req, res, next) => {
-    const { id } = req.params;
-    const post = {
-      id: "svdnbj",
-      title: "ajnh",
-      content: "lknvjsd",
-      owner: "654cf148dad2196c9062f63",
-    };
-    x;
-    const userdata = getDatafromToken(req);
-    if (post.owner === userdata.id) {
-      next();
-    } else {
-      res.redirect("/");
-    }
-  },
-  (req, res) => {
-    res.send("done");
-  }
-);
+// app.get(
+//   "/post/:id/edit",
+//   (req, res, next) => {
+//     const { id } = req.params;
+//     const post = {
+//       id: "svdnbj",
+//       title: "ajnh",
+//       content: "lknvjsd",
+//       owner: "654cf148dad2196c9062f63",
+//     };
+//     x;
+//     const userdata = getDatafromToken(req);
+//     if (post.owner === userdata.id) {
+//       next();
+//     } else {
+//       res.redirect("/");
+//     }
+//   },
+//   (req, res) => {
+//     res.send("done");
+//   }
+// );
 
 app.get("/demo", (req, res) => {
   res.render("demo");

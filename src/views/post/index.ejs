@@ -23,6 +23,9 @@
           <img src=<%= iteam.image %> alt=<%= iteam.title %> class="mb-4 rounded-md">
           <h2 class="text-xl font-semibold mb-4"><%= iteam.title %></h2>
           <p><%= (iteam.content).substring(0,50) %></p>
+          <p class="text-md text-semibold "><%= iteam.author.username %></p>
+          <p class="text-md text-semibold "><%= (iteam.createdAt).toLocaleString("en-US",{day:"2-digit",month:"short",year:"numeric"}) %></p>
+
         </div>
       </a>
 
