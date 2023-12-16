@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 
 const loginController = async (req, res) => {
   const { email, password } = req.body;
-  console.log(req.body.email && req.body.password);
+  // console.log(req.body.email && req.body.password);
   if (!req.body.email && !req.body.password) {
     return res.render("auth/login", {
       message1: "please provide email",
@@ -35,7 +35,7 @@ const loginController = async (req, res) => {
     });
   }
   const checkPass = await bcryptjs.compareSync(password, user.password);
-  console.log(checkPass);
+  // console.log(checkPass);
   if (!checkPass) {
     res.render("auth/login", {
       message1: "",
