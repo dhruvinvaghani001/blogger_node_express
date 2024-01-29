@@ -26,11 +26,7 @@ app.use("/", authRouter);
 app.use("/", postRouter);
 app.use("/", commentRouter);
 
-app.get("/getall",async(req,res)=>{
-  const post = await Post.findById("655463544338cc9d5232a4b8").populate('comments');
-  console.log(post);
-  res.send("dnbfjkdn");
-})
+
 
 
 // app.get(
@@ -56,24 +52,9 @@ app.get("/getall",async(req,res)=>{
 //   }
 // );
 
-app.get("/demo", (req, res) => {
-  res.render("demo");
-});
-
-app.post("/comment", (req, res) => {
-  console.log(req.body);
-  res.send("hello");
-});
-
-// app.get("/getdata", (req, res) => {
-//   const data = getDatafromToken(req);
-//   console.log(data);
-//   res.send("done");
-// });
 
 
-app.post("commerts",(req,res)=>{
-  res.send("hello");
-})
+
+
 
 export { app };
