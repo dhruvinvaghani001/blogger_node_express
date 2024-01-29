@@ -26,6 +26,21 @@ const getAllpostController = async (req, res) => {
       select: "username",
     });
     // console.log((data[0].createdAt).);
+    const dataComments = Post.aggregate([
+      {
+        $lookup: {
+          from: "Comment",
+          localField: "Comments",
+          foreignField: "_id",
+          as: "comments",
+        },
+      },
+    ]);
+
+    console.log(dataComments);
+
+    
+
     if (data.length == 0) {
       res.render("post/index", {
         data: [{ type: "not data", message: "no posts available" }],
@@ -96,10 +111,13 @@ const deletePostController = async (req, res) => {
     console.log(imageUrl);
     try {
       const publicId = imageUrl.split("/").pop().split(".")[0];
-      const result = await cloudinary.api.delete_resources(["uploads/"+publicId], {
-        type: "upload",
-        resource_type: "image",
-      });
+      const result = await cloudinary.api.delete_resources(
+        ["uploads/" + publicId],
+        {
+          type: "upload",
+          resource_type: "image",
+        }
+      );
 
       console.log(result);
     } catch (error) {
